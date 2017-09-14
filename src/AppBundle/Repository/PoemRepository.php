@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class PoemRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getSinglePoem(int $id)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p, b')
+            ->join('p.background', 'b')
+            ->getQuery()->getOneOrNullResult();
+    }
 }

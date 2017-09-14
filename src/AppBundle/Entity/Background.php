@@ -24,9 +24,9 @@ class Background
     /**
      * @var string
      *
-     * @ORM\Column(name="backgroundUrl", type="string", length=255)
+     * @ORM\Column(name="backgroundImage", type="string", length=255)
      */
-    private $backgroundUrl;
+    private $backgroundImage;
 
     /**
      * @var string
@@ -60,27 +60,27 @@ class Background
     }
 
     /**
-     * Set backgroundUrl
+     * Set backgroundImage
      *
-     * @param string $backgroundUrl
+     * @param string $backgroundImage
      *
      * @return Background
      */
-    public function setBackgroundUrl($backgroundUrl)
+    public function setBackgroundImage($backgroundImage)
     {
-        $this->backgroundUrl = $backgroundUrl;
+        $this->backgroundImage = $backgroundImage;
 
         return $this;
     }
 
     /**
-     * Get backgroundUrl
+     * Get backgroundImage
      *
      * @return string
      */
-    public function getBackgroundUrl()
+    public function getBackgroundImage()
     {
-        return $this->backgroundUrl;
+        return $this->backgroundImage;
     }
 
     /**
