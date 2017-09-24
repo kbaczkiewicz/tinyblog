@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: celtic
- * Date: 13.09.17
- * Time: 20:57
- */
+
 
 namespace AppBundle\UseCase\Request;
 
