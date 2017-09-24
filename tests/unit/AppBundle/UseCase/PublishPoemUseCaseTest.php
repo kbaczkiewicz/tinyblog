@@ -2,24 +2,24 @@
 
 namespace unit\AppBundle\UseCase;
 
-use AppBundle\Model\Poem;
-use AppBundle\Publisher\PoemPublisher;
-use AppBundle\UseCase\PublishPoemUseCase;
-use AppBundle\UseCase\Request\PoemsRequest;
-use AppBundle\UseCase\Request\PublishPoemRequest;
-use AppBundle\UseCase\Response\PublishPoemResponse;
+use AppBundle\Model\Post;
+use AppBundle\Publisher\PostPublisher;
+use AppBundle\UseCase\PublishPostUseCase;
+use AppBundle\UseCase\Request\PostsRequest;
+use AppBundle\UseCase\Request\PublishPostRequest;
+use AppBundle\UseCase\Response\PublishPostResponse;
 use Codeception\Test\Unit;
 
-class PublishPoemUseCaseTest extends Unit
+class PublishPostUseCaseTest extends Unit
 {
     /**
-     * @var PublishPoemUseCase
+     * @var PublishPostUseCase
      */
     private $useCase;
 
     protected function _before()
     {
-        $this->useCase = new PublishPoemUseCase($this->getPoemPublisher());
+        $this->useCase = new PublishPostUseCase($this->getPostPublisher());
     }
 
     protected function _after()
@@ -29,9 +29,9 @@ class PublishPoemUseCaseTest extends Unit
 
     public function testReturnsResponseOnValidRequest()
     {
-        $request = new PublishPoemRequest(new Poem());
+        $request = new PublishPostRequest(new Post());
         $response = $this->useCase->execute($request);
-        $this->assertTrue($response instanceof PublishPoemResponse);
+        $this->assertTrue($response instanceof PublishPostResponse);
     }
 
     /**
@@ -39,13 +39,13 @@ class PublishPoemUseCaseTest extends Unit
      */
     public function testThrowsExceptionOnInvalidRequest()
     {
-        $request = new PoemsRequest();
+        $request = new PostsRequest();
         $this->useCase->execute($request);
     }
 
 
-    private function getPoemPublisher()
+    private function getPostPublisher()
     {
-        return \Mockery::mock(PoemPublisher::class)->shouldIgnoreMissing();
+        return \Mockery::mock(PostPublisher::class)->shouldIgnoreMissing();
     }
 }

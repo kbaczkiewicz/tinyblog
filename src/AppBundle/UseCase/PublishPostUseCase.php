@@ -4,13 +4,13 @@ namespace AppBundle\UseCase;
 
 
 use AppBundle\Exception\InvalidUseCaseRequestException;
-use AppBundle\Publisher\PoemPublisher;
-use AppBundle\UseCase\Request\PublishPoemRequest;
+use AppBundle\Publisher\PostPublisher;
+use AppBundle\UseCase\Request\PublishPostRequest;
 use AppBundle\UseCase\Request\UseCaseRequestInterface;
-use AppBundle\UseCase\Response\PublishPoemResponse;
+use AppBundle\UseCase\Response\PublishPostResponse;
 use AppBundle\UseCase\Response\UseCaseResponseInterface;
 
-class PublishPoemUseCase implements UseCaseInterface
+class PublishPostUseCase implements UseCaseInterface
 {
     /**
      * @var PoemPublisher
@@ -22,7 +22,7 @@ class PublishPoemUseCase implements UseCaseInterface
      * @param PoemPublisher $poemPublisher
      * @todo - translation
      */
-    public function __construct(PoemPublisher $poemPublisher)
+    public function __construct(PostPublisher $poemPublisher)
     {
         $this->poemPublisher = $poemPublisher;
     }
@@ -31,17 +31,17 @@ class PublishPoemUseCase implements UseCaseInterface
     {
         $this->validateRequestType($request);
         try {
-            $this->poemPublisher->createFromValueObject($request->getPoem());
+            $this->poemPublisher->createFromValueObject($request->getPost());
             $this->poemPublisher->publish();
-            return new PublishPoemResponse('Poem published succesfully');
+            return new PublishPostResponse('Poem published succesfully');
         } catch (\InvalidArgumentException $ex) {
-            return new PublishPoemResponse($ex->getMessage());
+            return new PublishPostResponse($ex->getMessage());
         }
     }
 
     public function validateRequestType(UseCaseRequestInterface $request)
     {
-        if (!$request instanceof PublishPoemRequest) {
+        if (!$request instanceof PublishPostRequest) {
             throw new InvalidUseCaseRequestException();
         }
     }

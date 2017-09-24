@@ -9,28 +9,28 @@
 namespace unit\AppBundle\Publisher;
 
 
-use AppBundle\Model\Poem;
-use AppBundle\Publisher\PoemPublisher;
+use AppBundle\Model\Post;
+use AppBundle\Publisher\PostPublisher;
 use Codeception\Test\Unit;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class PoemPublisherTest extends Unit
+class PostPublisherTest extends Unit
 {
     /**
-     * @var PoemPublisher
+     * @var PostPublisher
      */
-    private $validPoemPublisher;
+    private $validPostPublisher;
 
     /**
-     * @var PoemPublisher
+     * @var PostPublisher
      */
-    private $invalidPoemPublisher;
+    private $invalidPostPublisher;
 
     protected function _before()
     {
-        $this->validPoemPublisher = new PoemPublisher($this->getEntityManager(), $this->getValidValidator());
-        $this->invalidPoemPublisher = new PoemPublisher($this->getEntityManager(), $this->getInvalidValidator());
+        $this->validPostPublisher = new PostPublisher($this->getEntityManager(), $this->getValidValidator());
+        $this->invalidPostPublisher = new PostPublisher($this->getEntityManager(), $this->getInvalidValidator());
         $this->tearDown();
     }
 
@@ -39,9 +39,9 @@ class PoemPublisherTest extends Unit
 
     }
 
-    public function testPublishPoemOnValidData()
+    public function testPublishPostOnValidData()
     {
-        $this->assertEmpty($this->validPoemPublisher->createFromValueObject($this->getPoem()));
+        $this->assertEmpty($this->validPostPublisher->createFromValueObject($this->getPost()));
     }
 
     /**
@@ -49,7 +49,7 @@ class PoemPublisherTest extends Unit
      */
     public function testThrowsExceptionOnInvalidData()
     {
-        $this->invalidPoemPublisher->createFromValueObject($this->getPoem());
+        $this->invalidPostPublisher->createFromValueObject($this->getPost());
     }
 
 
@@ -57,7 +57,7 @@ class PoemPublisherTest extends Unit
     {
         $mock = \Mockery::mock(EntityManagerInterface::class)
             ->shouldReceive('persist')
-            ->with($this->getPoem())
+            ->with($this->getPost())
             ->andReturn(null)
             ->getMock();
 
@@ -83,13 +83,13 @@ class PoemPublisherTest extends Unit
     {
         return \Mockery::mock(ValidatorInterface::class)
             ->shouldReceive('validate')
-            ->with(Poem::class)
+            ->with(Post::class)
             ->andReturn($errors)
             ->getMock();
     }
 
-    public function getPoem()
+    public function getPost()
     {
-        return new Poem();
+        return new Post();
     }
 }

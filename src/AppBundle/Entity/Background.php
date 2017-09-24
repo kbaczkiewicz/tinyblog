@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\Poem;
+use AppBundle\Entity\Post;
 /**
  * Background
  *
@@ -43,10 +43,10 @@ class Background
     private $fontColor;
 
     /**
-     * @var Poem
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Poem")
+     * @var Post
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Post")
      */
-    private $poem;
+    private $post;
 
 
     /**
@@ -134,13 +134,13 @@ class Background
     /**
      * Set poem
      *
-     * @param Poem $poem
+     * @param Post $post
      *
      * @return Background
      */
-    public function setPoem(Poem $poem = null)
+    public function setPost(Post $post = null)
     {
-        $this->poem = $poem;
+        $this->post = $post;
 
         return $this;
     }
@@ -148,10 +148,10 @@ class Background
     /**
      * Get poem
      *
-     * @return Poem
+     * @return Post
      */
-    public function getPoem()
+    public function getPost()
     {
-        return $this->poem;
+        return $this->post;
     }
 }

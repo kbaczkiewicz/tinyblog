@@ -6,13 +6,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 use AppBundle\Validator\Constraints as AppAssert;
 
 /**
- * Class Poem
+ * Class Post
  * @package AppBundle\Model
  *
  * @AppAssert\ImageOrColorIsSet
  *
  */
-class Poem
+class Post
 {
     /**
      * @var string
@@ -91,7 +91,7 @@ class Poem
     /**
      * @return string
      */
-    public function getPoem(): ?string
+    public function getPost(): ?string
     {
         return $this->poem;
     }
@@ -99,7 +99,7 @@ class Poem
     /**
      * @param string $poem
      */
-    public function setPoem(?string $poem)
+    public function setPost(?string $poem)
     {
         $this->poem = $poem;
     }

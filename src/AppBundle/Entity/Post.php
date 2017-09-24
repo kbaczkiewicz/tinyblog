@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Poem
  *
- * @ORM\Table(name="poem")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PoemRepository")
+ * @ORM\Table(name="post")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
  */
-class Poem
+class Post
 {
     /**
      * @var int
@@ -71,7 +71,7 @@ class Poem
      *
      * @param string $title
      *
-     * @return Poem
+     * @return Post
      */
     public function setTitle($title)
     {
@@ -95,7 +95,7 @@ class Poem
      *
      * @param string $autor
      *
-     * @return Poem
+     * @return Post
      */
     public function setAutor($autor)
     {
@@ -119,7 +119,7 @@ class Poem
      *
      * @param string $poem
      *
-     * @return Poem
+     * @return Post
      */
     public function setPoem($poem)
     {
@@ -143,7 +143,7 @@ class Poem
      *
      * @param \DateTime $createdAt
      *
-     * @return Poem
+     * @return Post
      */
     public function setCreatedAt($createdAt)
     {
@@ -167,7 +167,7 @@ class Poem
      *
      * @param \AppBundle\Entity\Background $background
      *
-     * @return Poem
+     * @return Post
      */
     public function setBackground(\AppBundle\Entity\Background $background = null)
     {

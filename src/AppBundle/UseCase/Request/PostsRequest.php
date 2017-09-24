@@ -8,6 +8,6 @@
 
 namespace AppBundle\UseCase\Request;
 
-class PoemsRequest implements UseCaseRequestInterface
+class PostsRequest implements UseCaseRequestInterface
 {
 }

@@ -4,43 +4,43 @@ namespace AppBundle\UseCase;
 
 
 use AppBundle\Exception\InvalidUseCaseRequestException;
-use AppBundle\Repository\PoemRepository;
-use AppBundle\UseCase\Request\SinglePoemRequest;
+use AppBundle\Repository\PostRepository;
+use AppBundle\UseCase\Request\SinglePostRequest;
 use AppBundle\UseCase\Request\UseCaseRequestInterface;
-use AppBundle\UseCase\Response\SinglePoemResponse;
+use AppBundle\UseCase\Response\SinglePostResponse;
 use AppBundle\UseCase\Response\UseCaseResponseInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class SinglePoemUseCase implements UseCaseInterface
+class SinglePostUseCase implements UseCaseInterface
 {
     /**
-     * @var PoemRepository
+     * @var PostRepository
      */
     private $repository;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->repository = $entityManager->getRepository('AppBundle:Poem');
+        $this->repository = $entityManager->getRepository('AppBundle:Post');
     }
 
     public function execute(UseCaseRequestInterface $request): UseCaseResponseInterface
     {
         $this->validateRequestType($request);
-        $poem = $this->getPoem($request->getId());
-        return new SinglePoemResponse($poem);
+        $poem = $this->getPost($request->getId());
+        return new SinglePostResponse($poem);
     }
 
     public function validateRequestType(UseCaseRequestInterface $request)
     {
-        if(!$request instanceof SinglePoemRequest) {
+        if(!$request instanceof SinglePostRequest) {
             throw new InvalidUseCaseRequestException();
         }
     }
 
-    private function getPoem(int $id)
+    private function getPost(int $id)
     {
-        $poem = $this->repository->getSinglePoem($id);
+        $poem = $this->repository->getSinglePost($id);
         if(null === $poem) {
             throw new NotFoundHttpException("There is no poem for given ID");
         }

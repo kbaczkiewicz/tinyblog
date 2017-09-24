@@ -4,12 +4,12 @@ namespace AppBundle\Publisher;
 
 
 use AppBundle\Entity\Background;
-use AppBundle\Entity\Poem;
-use AppBundle\Model\Poem as PoemVO;
+use AppBundle\Entity\Post;
+use AppBundle\Model\Post as PostVO;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class PoemPublisher
+class PostPublisher
 {
     /**
      * @var EntityManagerInterface
@@ -22,7 +22,7 @@ class PoemPublisher
     private $validator;
 
     /**
-     * @var Poem
+     * @var Post
      */
     private $poem;
 
@@ -32,7 +32,7 @@ class PoemPublisher
     private $background;
 
     /**
-     * PoemCreator constructor.
+     * PostCreator constructor.
      * @param EntityManagerInterface $entityManager
      * @param ValidatorInterface $validator
      */
@@ -42,7 +42,7 @@ class PoemPublisher
         $this->validator = $validator;
     }
 
-    public function createFromValueObject(PoemVO $poem)
+    public function createFromValueObject(PostVO $poem)
     {
         $this->validate($poem);
         $this->createEntities($poem);
@@ -53,22 +53,22 @@ class PoemPublisher
         $this->persist();
     }
 
-    private function createEntities(PoemVO $poem)
+    private function createEntities(PostVO $poem)
     {
-        $this->poem = new Poem();
+        $this->poem = new Post();
         $this->background = new Background();
         $poem->setAuthor($poem->getAuthor());
         $poem->setTitle($poem->getTitle());
         $poem->setCreatedAt($poem->getCreatedAt());
-        $poem->setPoem($poem->getPoem());
+        $poem->setPost($poem->getPost());
         $this->background->setBackgroundColor($poem->getBackgroundColor());
         $this->background->setBackgroundImage($poem->getBackgroundImage());
         $this->background->setFontColor($poem->getFontColor());
         $this->poem->setBackground($this->background);
-        $this->background->setPoem($this->poem);
+        $this->background->setPost($this->poem);
     }
 
-    private function validate(PoemVO $poem)
+    private function validate(PostVO $poem)
     {
         $errors = $this->validator->validate($poem);
         if (count($errors) > 0) {

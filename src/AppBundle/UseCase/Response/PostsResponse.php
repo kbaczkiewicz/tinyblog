@@ -3,26 +3,26 @@
 namespace AppBundle\UseCase\Response;
 
 
-class PoemsResponse implements UseCaseResponseInterface
+class PostsResponse implements UseCaseResponseInterface
 {
     /**
      * @var array
      */
-    private $poems;
+    private $posts;
 
     /**
      * PoemsResponse constructor.
      * @param array $poems
      */
-    public function __construct(array $poems)
+    public function __construct(array $posts)
     {
-        $this->poems = $poems;
+        $this->posts = $posts;
     }
 
     public function toArray()
     {
         return [
-            'poems' => $this->poems,
+            'posts' => $this->posts,
         ];
     }
 

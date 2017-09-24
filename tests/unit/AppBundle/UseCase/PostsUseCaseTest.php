@@ -2,34 +2,33 @@
 
 namespace unit\AppBundle\UseCase;
 
-
 use AppBundle\Exception\InvalidUseCaseRequestException;
-use AppBundle\Repository\PoemRepository;
-use AppBundle\UseCase\PoemsUseCase;
-use AppBundle\UseCase\Request\PoemsRequest;
-use AppBundle\UseCase\Request\SinglePoemRequest;
-use AppBundle\UseCase\Response\PoemsResponse;
+use AppBundle\Repository\PostRepository;
+use AppBundle\UseCase\PostsUseCase;
+use AppBundle\UseCase\Request\PostsRequest;
+use AppBundle\UseCase\Request\SinglePostRequest;
+use AppBundle\UseCase\Response\PostsResponse;
 use Codeception\Test\Unit;
 use Doctrine\ORM\EntityManagerInterface;
 
-class PoemsUseCaseTest extends Unit
+class PostsUseCaseTest extends Unit
 {
     /**
-     * @var PoemsUseCase
+     * @var PostsUseCase
      */
     private $useCase;
 
     protected function _before()
     {
-        $this->useCase = new PoemsUseCase($this->getEntityManager());
+        $this->useCase = new PostsUseCase($this->getEntityManager());
         $this->tearDown();
     }
 
     public function testValidRequestReturnsValidResponse()
     {
-        $request = new PoemsRequest();
+        $request = new PostsRequest();
         $response = $this->useCase->execute($request);
-        $this->assertTrue($response instanceof PoemsResponse);
+        $this->assertTrue($response instanceof PostsResponse);
     }
 
     /**
@@ -37,7 +36,7 @@ class PoemsUseCaseTest extends Unit
      */
     public function testThrowsExceptionOnInvalidRequest()
     {
-        $request = new SinglePoemRequest(1);
+        $request = new SinglePostRequest(1);
         $this->useCase->execute($request);
     }
 
@@ -49,14 +48,14 @@ class PoemsUseCaseTest extends Unit
     {
         return \Mockery::mock(EntityManagerInterface::class)
             ->shouldReceive('getRepository')
-            ->with('AppBundle:Poem')
+            ->with('AppBundle:Post')
             ->andReturn($this->getRepository())
             ->getMock();
     }
 
     private function getRepository()
     {
-        return \Mockery::mock(PoemRepository::class)
+        return \Mockery::mock(PostRepository::class)
             ->shouldReceive('findAll')
             ->andReturn(array())
             ->getMock();

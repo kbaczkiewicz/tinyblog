@@ -3,40 +3,40 @@
 namespace unit\AppBundle\UseCase;
 
 
-use AppBundle\Entity\Poem;
-use AppBundle\Repository\PoemRepository;
-use AppBundle\UseCase\PoemsUseCase;
-use AppBundle\UseCase\Request\PoemsRequest;
-use AppBundle\UseCase\Request\SinglePoemRequest;
-use AppBundle\UseCase\Response\SinglePoemResponse;
-use AppBundle\UseCase\SinglePoemUseCase;
+use AppBundle\Entity\Post;
+use AppBundle\Repository\PostRepository;
+use AppBundle\UseCase\PostsUseCase;
+use AppBundle\UseCase\Request\PostsRequest;
+use AppBundle\UseCase\Request\SinglePostRequest;
+use AppBundle\UseCase\Response\SinglePostResponse;
+use AppBundle\UseCase\SinglePostUseCase;
 use Codeception\Test\Unit;
 use Doctrine\ORM\EntityManagerInterface;
 
-class SinglePoemUseCaseTest extends Unit
+class SinglePostUseCaseTest extends Unit
 {
     /**
-     * @var SinglePoemUseCase
+     * @var SinglePostUseCase
      */
     private $validUseCase;
 
     /**
-     * @var SinglePoemUseCase
+     * @var SinglePostUseCase
      */
     private $invalidUseCase;
 
     protected function _before()
     {
-        $this->validUseCase = new SinglePoemUseCase($this->getEntityManager($this->getValidRepository()));
-        $this->invalidUseCase = new SinglePoemUseCase($this->getEntityManager($this->getInvalidRepository()));
+        $this->validUseCase = new SinglePostUseCase($this->getEntityManager($this->getValidRepository()));
+        $this->invalidUseCase = new SinglePostUseCase($this->getEntityManager($this->getInvalidRepository()));
         $this->tearDown();
     }
 
     public function testValidRequestReturnsResponse()
     {
-        $request = new SinglePoemRequest(1);
+        $request = new SinglePostRequest(1);
         $response = $this->validUseCase->execute($request);
-        $this->assertTrue($response instanceof SinglePoemResponse);
+        $this->assertTrue($response instanceof SinglePostResponse);
     }
 
     /**
@@ -44,7 +44,7 @@ class SinglePoemUseCaseTest extends Unit
      */
     public function testThrowsExceptionOnInvalidRequest()
     {
-        $request = new PoemsRequest();
+        $request = new PostsRequest();
         $this->validUseCase->execute($request);
     }
 
@@ -53,7 +53,7 @@ class SinglePoemUseCaseTest extends Unit
      */
     public function testThrowsNotFoundExceptionIfNoItemFound()
     {
-        $request = new SinglePoemRequest(1);
+        $request = new SinglePostRequest(1);
         $this->invalidUseCase->execute($request);
     }
 
@@ -65,7 +65,7 @@ class SinglePoemUseCaseTest extends Unit
     {
         return \Mockery::mock(EntityManagerInterface::class)
             ->shouldReceive('getRepository')
-            ->with('AppBundle:Poem')
+            ->with('AppBundle:Post')
             ->andReturn($repository)
             ->getMock();
     }
@@ -77,13 +77,13 @@ class SinglePoemUseCaseTest extends Unit
 
     private function getValidRepository()
     {
-        return $this->getRepository(new Poem);
+        return $this->getRepository(new Post);
     }
 
     private function getRepository($return)
     {
-        return \Mockery::mock(PoemRepository::class)
-            ->shouldReceive('getSinglePoem')
+        return \Mockery::mock(PostRepository::class)
+            ->shouldReceive('getSinglePost')
             ->with(1)
             ->andReturn($return)
             ->getMock();

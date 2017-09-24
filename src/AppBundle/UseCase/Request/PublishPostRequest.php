@@ -8,24 +8,24 @@
 
 namespace AppBundle\UseCase\Request;
 
-use AppBundle\Model\Poem;
+use AppBundle\Model\Post;
 
-class PublishPoemRequest implements UseCaseRequestInterface
+class PublishPostRequest implements UseCaseRequestInterface
 {
     /**
-     * @var Poem
+     * @var Post
      */
     private $poem;
 
-    public function __construct(Poem $poem)
+    public function __construct(Post $poem)
     {
         $this->poem = $poem;
     }
 
     /**
-     * @return Poem
+     * @return Post
      */
-    public function getPoem(): Poem
+    public function getPost(): Post
     {
         return $this->poem;
     }

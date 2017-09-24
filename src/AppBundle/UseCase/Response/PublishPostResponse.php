@@ -2,7 +2,7 @@
 
 namespace AppBundle\UseCase\Response;
 
-class PublishPoemResponse implements UseCaseResponseInterface
+class PublishPostResponse implements UseCaseResponseInterface
 {
     private $message;
 

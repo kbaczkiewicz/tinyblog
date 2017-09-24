@@ -3,12 +3,12 @@
 namespace AppBundle\UseCase\Response;
 
 
-use AppBundle\Entity\Poem;
+use AppBundle\Entity\Post;
 
-class SinglePoemResponse implements UseCaseResponseInterface
+class SinglePostResponse implements UseCaseResponseInterface
 {
     /**
-     * @var Poem
+     * @var Post
      */
     private $poem;
 

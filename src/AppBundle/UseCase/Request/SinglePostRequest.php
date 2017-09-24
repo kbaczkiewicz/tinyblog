@@ -9,7 +9,7 @@
 namespace AppBundle\UseCase\Request;
 
 
-class SinglePoemRequest implements UseCaseRequestInterface
+class SinglePostRequest implements UseCaseRequestInterface
 {
     /**
      * @var int
