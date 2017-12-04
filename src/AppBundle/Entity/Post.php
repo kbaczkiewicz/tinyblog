@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Poem
+ * Post
  *
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
@@ -38,9 +38,9 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="poem", type="string", length=255)
+     * @ORM\Column(name="post", type="string", length=255)
      */
-    private $poem;
+    private $post;
 
     /**
      * @var \DateTime
@@ -115,27 +115,27 @@ class Post
     }
 
     /**
-     * Set poem
+     * Set post
      *
-     * @param string $poem
+     * @param string $post
      *
      * @return Post
      */
-    public function setPoem($poem)
+    public function setPost($post)
     {
-        $this->poem = $poem;
+        $this->post = $post;
 
         return $this;
     }
 
     /**
-     * Get poem
+     * Get post
      *
      * @return string
      */
-    public function getPoem()
+    public function getPost()
     {
-        return $this->poem;
+        return $this->post;
     }
 
     /**
