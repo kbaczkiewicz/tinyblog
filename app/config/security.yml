@@ -2,6 +2,10 @@
 # https://symfony.com/doc/current/security.html
 security:
 
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         api_key_provider:
@@ -16,9 +20,28 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            stateless: false
+            pattern: ^/api/*
+            context: api_context
             logout: ~
-
             guard:
                 authenticators:
                     - AppBundle\Security\TokenAuthenticator
+
+        api_key_get:
+            stateless: false
+            context: api_context
+            anonymous: ~
+            logout: ~
+            form_login:
+                login_path: login
+                check_path: login
+                default_target_path: get_posts
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_ADMIN }
+
+
+
+

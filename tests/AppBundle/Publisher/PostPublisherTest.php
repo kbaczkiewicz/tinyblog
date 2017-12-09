@@ -1,21 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: celtic
- * Date: 13.09.17
- * Time: 21:52
- */
-
-namespace unit\AppBundle\Publisher;
-
 
 use AppBundle\Model\Post;
 use AppBundle\Publisher\PostPublisher;
-use Codeception\Test\Unit;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use PHPUnit\Framework\TestCase;
 
-class PostPublisherTest extends Unit
+class PostPublisherTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var PostPublisher
@@ -27,7 +18,7 @@ class PostPublisherTest extends Unit
      */
     private $invalidPostPublisher;
 
-    protected function _before()
+    protected function setUp()
     {
         $this->validPostPublisher = new PostPublisher($this->getEntityManager(), $this->getValidValidator());
         $this->invalidPostPublisher = new PostPublisher($this->getEntityManager(), $this->getInvalidValidator());

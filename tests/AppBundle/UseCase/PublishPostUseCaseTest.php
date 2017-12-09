@@ -1,23 +1,21 @@
 <?php
 
-namespace unit\AppBundle\UseCase;
-
 use AppBundle\Model\Post;
 use AppBundle\Publisher\PostPublisher;
 use AppBundle\UseCase\PublishPostUseCase;
 use AppBundle\UseCase\Request\PostsRequest;
 use AppBundle\UseCase\Request\PublishPostRequest;
 use AppBundle\UseCase\Response\PublishPostResponse;
-use Codeception\Test\Unit;
+use Doctrine\Bundle\DoctrineCacheBundle\Tests\TestCase;
 
-class PublishPostUseCaseTest extends Unit
+class PublishPostUseCaseTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var PublishPostUseCase
      */
     private $useCase;
 
-    protected function _before()
+    protected function setUp()
     {
         $this->useCase = new PublishPostUseCase($this->getPostPublisher());
     }

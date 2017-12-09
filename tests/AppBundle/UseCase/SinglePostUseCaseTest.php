@@ -2,7 +2,6 @@
 
 namespace unit\AppBundle\UseCase;
 
-
 use AppBundle\Entity\Post;
 use AppBundle\Repository\PostRepository;
 use AppBundle\UseCase\PostsUseCase;
@@ -10,10 +9,10 @@ use AppBundle\UseCase\Request\PostsRequest;
 use AppBundle\UseCase\Request\SinglePostRequest;
 use AppBundle\UseCase\Response\SinglePostResponse;
 use AppBundle\UseCase\SinglePostUseCase;
-use Codeception\Test\Unit;
+use Doctrine\Bundle\DoctrineCacheBundle\Tests\TestCase;
 use Doctrine\ORM\EntityManagerInterface;
 
-class SinglePostUseCaseTest extends Unit
+class SinglePostUseCaseTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var SinglePostUseCase
@@ -25,7 +24,7 @@ class SinglePostUseCaseTest extends Unit
      */
     private $invalidUseCase;
 
-    protected function _before()
+    protected function setUp()
     {
         $this->validUseCase = new SinglePostUseCase($this->getEntityManager($this->getValidRepository()));
         $this->invalidUseCase = new SinglePostUseCase($this->getEntityManager($this->getInvalidRepository()));

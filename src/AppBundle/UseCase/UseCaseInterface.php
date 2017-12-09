@@ -1,6 +1,6 @@
 <?php
-namespace AppBundle\UseCase;
 
+namespace AppBundle\UseCase;
 
 use AppBundle\UseCase\Request\UseCaseRequestInterface;
 use AppBundle\UseCase\Response\UseCaseResponseInterface;

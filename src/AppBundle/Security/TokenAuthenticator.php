@@ -2,38 +2,33 @@
 
 namespace AppBundle\Security;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
-    public function start(Request $request, AuthenticationException $authException = null)
+    public function supports(Request $request)
     {
-        $data = [
-            'message' => 'Authentication Required',
-        ];
-
-        return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
+        return $request->headers->has('X-AUTH-TOKEN');
     }
 
     public function getCredentials(Request $request)
     {
-        $token = $request->headers->get('X-AUTH-TOKEN') ?: null;
-
-        return [
-            'token' => $token,
-        ];
+        return array(
+            'token' => $request->headers->get('X-AUTH-TOKEN'),
+        );
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $apiKey = $credentials['token'];
+
         if (null === $apiKey) {
             return;
         }
@@ -46,18 +41,28 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return true;
     }
 
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    {
+        return null;
+    }
+
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        $data = [
-            'message' => strtr($exception->getMessageKey(), $exception->getMessageData()),
-        ];
+        $data = array(
+            'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
+
+        );
 
         return new JsonResponse($data, Response::HTTP_FORBIDDEN);
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function start(Request $request, AuthenticationException $authException = null)
     {
-        return null;
+        $data = array(
+            'message' => 'Authentication Required'
+        );
+
+        return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
     }
 
     public function supportsRememberMe()

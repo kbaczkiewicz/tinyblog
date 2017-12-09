@@ -1,24 +1,22 @@
 <?php
 
-namespace unit\AppBundle\UseCase;
-
 use AppBundle\Exception\InvalidUseCaseRequestException;
 use AppBundle\Repository\PostRepository;
 use AppBundle\UseCase\PostsUseCase;
 use AppBundle\UseCase\Request\PostsRequest;
 use AppBundle\UseCase\Request\SinglePostRequest;
 use AppBundle\UseCase\Response\PostsResponse;
-use Codeception\Test\Unit;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\TestCase;
 
-class PostsUseCaseTest extends Unit
+class PostsUseCaseTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var PostsUseCase
      */
     private $useCase;
 
-    protected function _before()
+    protected function setUp()
     {
         $this->useCase = new PostsUseCase($this->getEntityManager());
         $this->tearDown();
@@ -38,10 +36,6 @@ class PostsUseCaseTest extends Unit
     {
         $request = new SinglePostRequest(1);
         $this->useCase->execute($request);
-    }
-
-    protected function _after()
-    {
     }
 
     private function getEntityManager()
