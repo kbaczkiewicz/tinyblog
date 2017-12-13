@@ -1,21 +1,14 @@
 <?php
 
-use AppBundle\Model\Post;
+use AppBundle\Entity\Post;
 use AppBundle\Publisher\PostPublisher;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use PHPUnit\Framework\TestCase;
 
 class PostPublisherTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var PostPublisher
-     */
     private $validPostPublisher;
 
-    /**
-     * @var PostPublisher
-     */
     private $invalidPostPublisher;
 
     protected function setUp()
@@ -32,7 +25,7 @@ class PostPublisherTest extends \PHPUnit_Framework_TestCase
 
     public function testPublishPostOnValidData()
     {
-        $this->assertEmpty($this->validPostPublisher->createFromValueObject($this->getPost()));
+        $this->assertEmpty($this->validPostPublisher->publish($this->getPost()));
     }
 
     /**
@@ -40,7 +33,7 @@ class PostPublisherTest extends \PHPUnit_Framework_TestCase
      */
     public function testThrowsExceptionOnInvalidData()
     {
-        $this->invalidPostPublisher->createFromValueObject($this->getPost());
+        $this->invalidPostPublisher->publish($this->getPost());
     }
 
 
@@ -48,7 +41,7 @@ class PostPublisherTest extends \PHPUnit_Framework_TestCase
     {
         $mock = \Mockery::mock(EntityManagerInterface::class)
             ->shouldReceive('persist')
-            ->with($this->getPost())
+            ->with(Post::class)
             ->andReturn(null)
             ->getMock();
 

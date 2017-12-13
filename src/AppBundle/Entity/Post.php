@@ -49,30 +49,12 @@ class Post
      */
     private $createdAt;
 
-    /**
-     * @var Background
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Background")
-     */
-    private $background;
 
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set title
-     *
-     * @param string $title
-     *
-     * @return Post
-     */
     public function setTitle($title)
     {
         $this->title = $title;
@@ -80,23 +62,11 @@ class Post
         return $this;
     }
 
-    /**
-     * Get title
-     *
-     * @return string
-     */
     public function getTitle()
     {
         return $this->title;
     }
 
-    /**
-     * Set autor
-     *
-     * @param string $autor
-     *
-     * @return Post
-     */
     public function setAutor($autor)
     {
         $this->autor = $autor;
@@ -104,23 +74,11 @@ class Post
         return $this;
     }
 
-    /**
-     * Get autor
-     *
-     * @return string
-     */
     public function getAutor()
     {
         return $this->autor;
     }
 
-    /**
-     * Set post
-     *
-     * @param string $post
-     *
-     * @return Post
-     */
     public function setPost($post)
     {
         $this->post = $post;
@@ -128,23 +86,11 @@ class Post
         return $this;
     }
 
-    /**
-     * Get post
-     *
-     * @return string
-     */
     public function getPost()
     {
         return $this->post;
     }
 
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Post
-     */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
@@ -152,37 +98,8 @@ class Post
         return $this;
     }
 
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
     public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-
-    /**
-     * Set background
-     *
-     * @param \AppBundle\Entity\Background $background
-     *
-     * @return Post
-     */
-    public function setBackground(\AppBundle\Entity\Background $background = null)
-    {
-        $this->background = $background;
-
-        return $this;
-    }
-
-    /**
-     * Get background
-     *
-     * @return \AppBundle\Entity\Background
-     */
-    public function getBackground()
-    {
-        return $this->background;
     }
 }

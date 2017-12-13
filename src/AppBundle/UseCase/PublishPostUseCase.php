@@ -12,28 +12,19 @@ use AppBundle\UseCase\Response\UseCaseResponseInterface;
 
 class PublishPostUseCase implements UseCaseInterface
 {
-    /**
-     * @var PoemPublisher
-     */
-    private $poemPublisher;
+    private $postPublisher;
 
-    /**
-     * PublishPoemUseCase constructor.
-     * @param PoemPublisher $poemPublisher
-     * @todo - translation
-     */
-    public function __construct(PostPublisher $poemPublisher)
+    public function __construct(PostPublisher $postPublisher)
     {
-        $this->poemPublisher = $poemPublisher;
+        $this->postPublisher = $postPublisher;
     }
 
     public function execute(UseCaseRequestInterface $request): UseCaseResponseInterface
     {
         $this->validateRequestType($request);
         try {
-            $this->poemPublisher->createFromValueObject($request->getPost());
-            $this->poemPublisher->publish();
-            return new PublishPostResponse('Poem published succesfully');
+            $this->postPublisher->publish($request->getPost());
+            return new PublishPostResponse('Post published succesfully');
         } catch (\InvalidArgumentException $ex) {
             return new PublishPostResponse($ex->getMessage());
         }

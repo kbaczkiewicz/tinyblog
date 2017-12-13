@@ -1,27 +1,20 @@
 <?php
 
-
 namespace AppBundle\UseCase\Request;
 
-use AppBundle\Model\Post;
+use \AppBundle\Entity\Post;
 
 class PublishPostRequest implements UseCaseRequestInterface
 {
-    /**
-     * @var Post
-     */
-    private $poem;
+    private $post;
 
-    public function __construct(Post $poem)
+    public function __construct(Post $post)
     {
-        $this->poem = $poem;
+        $this->post = $post;
     }
 
-    /**
-     * @return Post
-     */
     public function getPost(): Post
     {
-        return $this->poem;
+        return $this->post;
     }
 }

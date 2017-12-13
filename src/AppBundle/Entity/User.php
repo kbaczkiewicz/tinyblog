@@ -2,11 +2,11 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="UserRepository")
+ * @ORM\Entity
  * @ORM\Table(name="user")
  */
 class User implements UserInterface
@@ -24,53 +24,36 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\Column(type="string")
-     */
-    private $password;
-
-    /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
      */
     private $apiKey;
 
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $roles;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $salt;
-
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
 
-    public function getPassword()
+    public function getRoles(): array
     {
-        return $this->password;
+        return ['ROLE_ADMIN'];
     }
 
-    public function getApiKey()
+    public function getApiKey(): string
     {
         return $this->apiKey;
     }
 
-    public function getRoles()
+    public function getPassword()
     {
-        return $this->roles;
     }
 
     public function getSalt()
     {
-        return $this->salt;
     }
 
     public function eraseCredentials()

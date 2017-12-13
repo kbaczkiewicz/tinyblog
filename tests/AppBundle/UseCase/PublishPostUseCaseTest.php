@@ -1,6 +1,6 @@
 <?php
 
-use AppBundle\Model\Post;
+use AppBundle\Entity\Post;
 use AppBundle\Publisher\PostPublisher;
 use AppBundle\UseCase\PublishPostUseCase;
 use AppBundle\UseCase\Request\PostsRequest;

@@ -10,13 +10,13 @@ class SinglePostResponse implements UseCaseResponseInterface
     /**
      * @var Post
      */
-    private $poem;
+    private $post;
 
 
     public function toArray()
     {
         return [
-            'poem' => $this->poem,
+            'post' => $this->post,
         ];
     }
 }
