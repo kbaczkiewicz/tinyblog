@@ -12,6 +12,10 @@ class SinglePostResponse implements UseCaseResponseInterface
      */
     private $post;
 
+    public function __construct(Post $post)
+    {
+        $this->post = $post;
+    }
 
     public function toArray()
     {

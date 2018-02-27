@@ -10,11 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
  */
-class Post
+class Post implements \JsonSerializable
 {
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -22,84 +20,98 @@ class Post
     private $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="autor", type="string", length=255)
+     * @ORM\Column(name="author", type="string", length=255)
      */
-    private $autor;
+    private $author;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="post", type="string", length=255)
+     * @ORM\Column(name="post", type="text")
      */
     private $post;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category", inversedBy="posts", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
 
-    public function getId()
+
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
-
-        return $this;
     }
 
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setAutor($autor)
+    public function setAuthor(string $author)
     {
-        $this->autor = $autor;
+        $this->author = $author;
 
         return $this;
     }
 
-    public function getAutor()
+    public function getAuthor(): ?string
     {
-        return $this->autor;
+        return $this->author;
     }
 
-    public function setPost($post)
+    public function setPost(string $post)
     {
         $this->post = $post;
-
-        return $this;
     }
 
-    public function getPost()
+    public function getPost(): ?string
     {
         return $this->post;
     }
 
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
-
-        return $this;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+    }
+
+
+    function jsonSerialize()
+    {
+        return [
+            'id'         => $this->id,
+            'title'      => $this->title,
+            'author'     => $this->author,
+            'post'       => $this->post,
+            'created_at' => $this->createdAt,
+        ];
     }
 }

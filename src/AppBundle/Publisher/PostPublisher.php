@@ -39,7 +39,9 @@ class PostPublisher
     {
         $errors = $this->validator->validate($post);
         if (count($errors) > 0) {
-            throw new \InvalidArgumentException(sprintf("You must validate %s before %s!", get_class($post), __CLASS__));
+            throw new \InvalidArgumentException(
+                sprintf("You must validate %s before %s!", get_class($post), __CLASS__)
+            );
         }
     }
 

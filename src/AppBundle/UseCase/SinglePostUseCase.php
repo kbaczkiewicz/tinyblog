@@ -2,7 +2,6 @@
 
 namespace AppBundle\UseCase;
 
-
 use AppBundle\Exception\InvalidUseCaseRequestException;
 use AppBundle\Repository\PostRepository;
 use AppBundle\UseCase\Request\SinglePostRequest;
@@ -27,24 +26,25 @@ class SinglePostUseCase implements UseCaseInterface
     public function execute(UseCaseRequestInterface $request): UseCaseResponseInterface
     {
         $this->validateRequestType($request);
-        $poem = $this->getPost($request->getId());
-        return new SinglePostResponse($poem);
+        $post = $this->getPost($request->getId());
+
+        return new SinglePostResponse($post);
     }
 
     public function validateRequestType(UseCaseRequestInterface $request)
     {
-        if(!$request instanceof SinglePostRequest) {
+        if (!$request instanceof SinglePostRequest) {
             throw new InvalidUseCaseRequestException();
         }
     }
 
     private function getPost(int $id)
     {
-        $poem = $this->repository->getSinglePost($id);
-        if(null === $poem) {
-            throw new NotFoundHttpException("There is no poem for given ID");
+        $post = $this->repository->getSinglePost($id);
+        if (null === $post) {
+            throw new NotFoundHttpException("There is no post for given ID");
         }
 
-        return $poem;
+        return $post;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Model\Post;
+use AppBundle\Entity\Post;
 use AppBundle\UseCase\PostsUseCase;
 use AppBundle\UseCase\PublishPostUseCase;
 use AppBundle\UseCase\Request\PostsRequest;
@@ -60,6 +60,4 @@ class ApiController extends Controller
         $response = $useCase->execute(new PublishPostRequest($poem));
         return new JsonResponse($response->toArray());
     }
-
-
 }
